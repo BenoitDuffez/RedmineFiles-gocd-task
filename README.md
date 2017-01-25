@@ -1,12 +1,15 @@
 # GoCD task plugin skeleton
 
 This is merely a skeleton plugin that plugin developers can fork to get quickly 
-started with writing task plugins for GoCD.
+started with writing task plugins for GoCD. It works out of the box, but you should change 
+it to do something besides executing `curl`.
+ 
+All the documentation is hosted at https://plugin-api.gocd.io/current/tasks.
 
 ## Getting started
 
-* Edit the file `build.gradle`
-* Edit the file `settings.gradle`
+* Edit the file `build.gradle` to change the plugin id, description and some other metadata.
+* Edit the file `settings.gradle` to change the name of this project.
 * Edit the `GetConfigRequest.java` class to add any configuration fields that should be shown in the view.
 * Edit the `TaskConfig.java` file which contains the model for your task configuration.
 * Edit the `task.template.html` file which contains the view for the plugin settings page of your plugin.
