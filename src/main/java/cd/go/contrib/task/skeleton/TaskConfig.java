@@ -18,17 +18,18 @@ package cd.go.contrib.task.skeleton;
 
 import java.util.Map;
 
-public class Config {
+// TODO: edit this to map to the fields in your task configuration
+public class TaskConfig {
     private final String requestType;
     private final String secureConnection;
     private final String additionalOptions;
     private final String url;
 
-    public Config(Map config) {
-        requestType = getValue(config, CurlTask.REQUEST_PROPERTY);
-        secureConnection = getValue(config, CurlTask.SECURE_CONNECTION_PROPERTY);
-        additionalOptions = getValue(config, CurlTask.ADDITIONAL_OPTIONS);
-        url = getValue(config, CurlTask.URL_PROPERTY);
+    public TaskConfig(Map config) {
+        requestType = getValue(config, TaskPlugin.REQUEST_PROPERTY);
+        secureConnection = getValue(config, TaskPlugin.SECURE_CONNECTION_PROPERTY);
+        additionalOptions = getValue(config, TaskPlugin.ADDITIONAL_OPTIONS);
+        url = getValue(config, TaskPlugin.URL_PROPERTY);
     }
 
     private String getValue(Map config, String property) {
