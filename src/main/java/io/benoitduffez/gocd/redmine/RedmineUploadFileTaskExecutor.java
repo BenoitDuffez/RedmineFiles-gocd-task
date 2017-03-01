@@ -131,7 +131,7 @@ public class RedmineUploadFileTaskExecutor {
 
         String description = String.format(Locale.getDefault(),
                 "File generated on %s (go pipeline #%s)",
-                new SimpleDateFormat("dd/mm/yyyy HH:MM:ss", Locale.getDefault()).format(new Date()),
+                new SimpleDateFormat("dd/MM/yyyy HH:mm:ss", Locale.getDefault()).format(new Date()),
                 taskContext.getEnvironmentVariables().get("GO_PIPELINE_COUNTER"));
 
         // Prepare JSON
