@@ -142,6 +142,8 @@ public class RedmineUploadFileTaskExecutor {
         try (OutputStream output = connection.getOutputStream()) {
             output.write(json.getBytes());
         }
+
+        console.printLine("Result: " + getText(connection.getInputStream()));
     }
 
     /**
