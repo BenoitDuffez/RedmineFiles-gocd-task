@@ -23,7 +23,7 @@ Typical use is to publish a binary to Redmine.
 
 The project ID is either the numeric or the string ID.
 
-There is an artifact generated, it's called `redmine_output.html` (at the root).
+There is an artifact generated, it's called `redmine_output.html` (at the root). It only contains a link to the Redmine 'Files' page of the project.
 
 ## Building the code base
 
@@ -33,16 +33,20 @@ To build the jar, run `./gradlew clean test assemble`
 
 1. Set up your environment:
   ![Environment: URL and API key](environment.png)
+  Be sure to set the API key as a secure variable, otherwise it may be logged.
 1. Set up your template:
   ![Template: add job/task](template.png)
+  Here everything is parameterized in the template
 1. Set up your pipeline parameters:
   ![Pipeline: parameters](pipeline.png)
+  The pipeline defines the missing parameters: project and version IDs
 1. Result in redmine:
   ![Redmine: result](redmine.png)
 
 ## License
 
 ```plain
+Copyright 2017 Benoit Duffez
 Copyright 2017 ThoughtWorks, Inc.
 
 Licensed under the Apache License, Version 2.0 (the "License");
