@@ -29,6 +29,17 @@ There is an artifact generated, it's called `redmine_output.html` (at the root).
 
 To build the jar, run `./gradlew clean test assemble`
 
+## Step by step
+
+1. Set up your environment:
+  ![Environment: URL and API key](environment.png)
+1. Set up your template:
+  ![Template: add job/task](template.png)
+1. Set up your pipeline parameters:
+  ![Pipeline: parameters](pipeline.png)
+1. Result in redmine:
+  ![Redmine: result](redmine.png)
+
 ## License
 
 ```plain
