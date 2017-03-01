@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.contrib.task.skeleton;
+package io.benoitduffez.gocd.redmine;
 
 import java.util.Map;
 

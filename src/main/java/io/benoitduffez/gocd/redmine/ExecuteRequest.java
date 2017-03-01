@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.contrib.task.skeleton;
+package io.benoitduffez.gocd.redmine;
 
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;

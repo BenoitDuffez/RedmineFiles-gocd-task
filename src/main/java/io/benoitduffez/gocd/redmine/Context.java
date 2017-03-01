@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-package cd.go.contrib.task.skeleton;
+package io.benoitduffez.gocd.redmine;
 
-import org.apache.commons.io.IOUtils;
+import java.util.Map;
 
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
+public class Context {
+    private final Map environmentVariables;
+    private final String workingDir;
 
-public class Util {
-
-    public static String readResource(String resourceFile) {
-        try (InputStreamReader reader = new InputStreamReader(Util.class.getResourceAsStream(resourceFile), StandardCharsets.UTF_8)) {
-            return IOUtils.toString(reader);
-        } catch (IOException e) {
-            throw new RuntimeException("Could not find resource " + resourceFile, e);
-        }
+    public Context(Map context) {
+        environmentVariables = (Map) context.get("environmentVariables");
+        workingDir = (String) context.get("workingDirectory");
     }
 
+    public Map getEnvironmentVariables() {
+        return environmentVariables;
+    }
 
+    public String getWorkingDir() {
+        return workingDir;
+    }
 }

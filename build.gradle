@@ -28,19 +28,18 @@ def gitRevision = { ->
 
 project.ext.gitRevision = gitRevision()
 
-group = 'io.benoitduffez.gocd-redmine'
+group = 'io.benoitduffez.gocd.redmine'
 version = '0.1-SNAPSHOT'
 
 // these values that go into plugin.xml
-// TODO: change these
 project.ext.pluginDesc = [
-  id         : 'io.benoitduffez.gocd-redmine',
+  id         : 'io.benoitduffez.gocd.redmine',
   version    : project.version,
   goCdVersion: '16.12.0',
   name       : 'Redmine GoCD',
   description: 'Redmine plugin for Go CD',
   vendorName : 'Benoit Duffez',
-  vendorUrl  : 'https://github.com/BenoitDuffez/task-skeleton-plugin'
+  vendorUrl  : 'https://github.com/BenoitDuffez/RedmineFiles-gocd-task'
 ]
 
 // Force 1.7 compatibility to ensure that it works with older JVMs

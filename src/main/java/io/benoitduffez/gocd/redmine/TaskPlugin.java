@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package cd.go.contrib.task.skeleton;
+package io.benoitduffez.gocd.redmine;
 
 import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
