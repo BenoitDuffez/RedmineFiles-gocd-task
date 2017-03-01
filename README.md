@@ -7,7 +7,10 @@ Typical use is to publish a binary to Redmine.
 ## Requirements
 
 * GoCD 17 (could work with earlier versions, as low as 14)
-* Redmine 3.4
+* Redmine: one of these:
+  * Redmine v3.4
+  * SVN release [r16109](http://www.redmine.org/projects/redmine/repository/revisions/16109)
+  * apply manually [this patch](http://www.redmine.org/projects/redmine/repository/revisions/16109/diff/)
 
 ## Getting started
 
@@ -17,8 +20,6 @@ Typical use is to publish a binary to Redmine.
   * the artifact you wish to upload
   * the Redmine project
   * the project version
-
-For Redmine, you either need the 3.4 version, or the r16109, or apply manually [this patch](http://www.redmine.org/projects/redmine/repository/revisions/16109/diff/).
 
 The project ID is either the numeric or the string ID.
 
