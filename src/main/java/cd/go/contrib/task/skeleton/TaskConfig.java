@@ -18,37 +18,30 @@ package cd.go.contrib.task.skeleton;
 
 import java.util.Map;
 
-// TODO: edit this to map to the fields in your task configuration
 public class TaskConfig {
-    private final String requestType;
-    private final String secureConnection;
-    private final String additionalOptions;
-    private final String url;
+    private final String projectId;
+    private final String versionId;
+    private final String filePath;
 
     public TaskConfig(Map config) {
-        requestType = getValue(config, TaskPlugin.REQUEST_PROPERTY);
-        secureConnection = getValue(config, TaskPlugin.SECURE_CONNECTION_PROPERTY);
-        additionalOptions = getValue(config, TaskPlugin.ADDITIONAL_OPTIONS);
-        url = getValue(config, TaskPlugin.URL_PROPERTY);
+        projectId = getValue(config, TaskPlugin.PROJECT_ID_PROPERTY);
+        versionId = getValue(config, TaskPlugin.VERSION_ID_PROPERTY);
+        filePath = getValue(config, TaskPlugin.FILE_PATH_PROPERTY);
     }
 
     private String getValue(Map config, String property) {
         return (String) ((Map) config.get(property)).get("value");
     }
 
-    public String getRequestType() {
-        return requestType;
+    public String getProjectId() {
+        return projectId;
     }
 
-    public String getSecureConnection() {
-        return secureConnection;
+    public String getVersionId() {
+        return versionId;
     }
 
-    public String getAdditionalOptions() {
-        return additionalOptions;
-    }
-
-    public String getUrl() {
-        return url;
+    public String getFilePath() {
+        return filePath;
     }
 }

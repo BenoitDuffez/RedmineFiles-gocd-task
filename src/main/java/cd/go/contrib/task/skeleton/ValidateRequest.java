@@ -29,11 +29,23 @@ public class ValidateRequest {
         HashMap<String, Object> validationResult = new HashMap<>();
         int responseCode = DefaultGoPluginApiResponse.SUCCESS_RESPONSE_CODE;
         Map configMap = (Map) new GsonBuilder().create().fromJson(request.requestBody(), Object.class);
-        HashMap errorMap = new HashMap();
-        if (!configMap.containsKey(TaskPlugin.URL_PROPERTY) || ((Map) configMap.get(TaskPlugin.URL_PROPERTY)).get("value") == null || ((String) ((Map) configMap.get(TaskPlugin.URL_PROPERTY)).get("value")).trim().isEmpty()) {
-            errorMap.put(TaskPlugin.URL_PROPERTY, "URL cannot be empty");
+        HashMap<String, String> errorMap = new HashMap<>();
+        if (!hasValidEntry(configMap, TaskPlugin.PROJECT_ID_PROPERTY)) {
+            errorMap.put(TaskPlugin.PROJECT_ID_PROPERTY, "Project ID cannot be empty");
+        }
+        if (!hasValidEntry(configMap, TaskPlugin.VERSION_ID_PROPERTY)) {
+            errorMap.put(TaskPlugin.VERSION_ID_PROPERTY, "Version ID cannot be empty");
+        }
+        if (!hasValidEntry(configMap, TaskPlugin.FILE_PATH_PROPERTY)) {
+            errorMap.put(TaskPlugin.FILE_PATH_PROPERTY, "File Path cannot be empty");
         }
         validationResult.put("errors", errorMap);
         return new DefaultGoPluginApiResponse(responseCode, TaskPlugin.GSON.toJson(validationResult));
+    }
+
+    private boolean hasValidEntry(Map map, String key) {
+        return map.containsKey(key)
+                && ((Map) map.get(key)).get("value") != null
+                && !((String) ((Map) map.get(key)).get("value")).trim().isEmpty();
     }
 }

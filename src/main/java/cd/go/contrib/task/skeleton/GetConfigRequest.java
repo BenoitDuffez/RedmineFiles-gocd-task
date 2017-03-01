@@ -27,31 +27,23 @@ public class GetConfigRequest {
     public GoPluginApiResponse execute() {
         HashMap<String, Object> config = new HashMap<>();
 
-        HashMap<String, Object> url = new HashMap<>();
-        url.put("display-order", "0");
-        url.put("display-name", "Url");
-        url.put("required", true);
-        config.put(TaskPlugin.URL_PROPERTY, url);
+        HashMap<String, Object> projectId = new HashMap<>();
+        projectId.put("display-order", "0");
+        projectId.put("display-name", "Project ID");
+        projectId.put("required", true);
+        config.put(TaskPlugin.PROJECT_ID_PROPERTY, projectId);
 
-        HashMap<String, Object> secure = new HashMap<>();
-        secure.put("default-value", TaskPlugin.SECURE_CONNECTION);
-        secure.put("display-order", "1");
-        secure.put("display-name", "Secure Connection");
-        secure.put("required", false);
-        config.put(TaskPlugin.SECURE_CONNECTION_PROPERTY, secure);
+        HashMap<String, Object> versionId = new HashMap<>();
+        versionId.put("display-order", "1");
+        versionId.put("display-name", "Version ID");
+        versionId.put("required", true);
+        config.put(TaskPlugin.VERSION_ID_PROPERTY, versionId);
 
-        HashMap<String, Object> requestType = new HashMap<>();
-        requestType.put("default-value", TaskPlugin.REQUEST_TYPE);
-        requestType.put("display-order", "2");
-        requestType.put("display-name", "Request Type");
-        requestType.put("required", false);
-        config.put(TaskPlugin.REQUEST_PROPERTY, requestType);
-
-        HashMap<String, Object> additionalOptions = new HashMap<>();
-        additionalOptions.put("display-order", "3");
-        additionalOptions.put("display-name", "Additional Options");
-        additionalOptions.put("required", false);
-        config.put(TaskPlugin.ADDITIONAL_OPTIONS, additionalOptions);
+        HashMap<String, Object> filePath = new HashMap<>();
+        filePath.put("display-order", "2");
+        filePath.put("display-name", "File Path");
+        filePath.put("required", true);
+        config.put(TaskPlugin.FILE_PATH_PROPERTY, filePath);
 
         return DefaultGoPluginApiResponse.success(TaskPlugin.GSON.toJson(config));
     }

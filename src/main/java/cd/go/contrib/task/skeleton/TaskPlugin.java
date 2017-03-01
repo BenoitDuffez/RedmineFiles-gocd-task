@@ -16,6 +16,7 @@
 
 package cd.go.contrib.task.skeleton;
 
+import com.google.gson.FieldNamingPolicy;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.thoughtworks.go.plugin.api.GoApplicationAccessor;
@@ -31,14 +32,13 @@ import java.util.Arrays;
 
 @Extension
 public class TaskPlugin implements GoPlugin {
-
-    public static final String URL_PROPERTY = "Url";
-    public static final String ADDITIONAL_OPTIONS = "AdditionalOptions";
-    public static final String SECURE_CONNECTION = "yes";
-    public static final String SECURE_CONNECTION_PROPERTY = "SecureConnection";
-    public static final String REQUEST_TYPE = "-G";
-    public static final String REQUEST_PROPERTY = "RequestType";
-    public static final Gson GSON = new GsonBuilder().serializeNulls().create();
+    public static final String PROJECT_ID_PROPERTY = "ProjectId";
+    public static final String VERSION_ID_PROPERTY = "VersionId";
+    public static final String FILE_PATH_PROPERTY = "FilePath";
+    public static final Gson GSON = new GsonBuilder()
+            .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
+            .serializeNulls()
+            .create();
 
     public static Logger LOGGER = Logger.getLoggerFor(TaskPlugin.class);
 
