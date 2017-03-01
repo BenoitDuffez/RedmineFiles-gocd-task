@@ -1,20 +1,28 @@
-# GoCD task plugin skeleton
+# Redmine File upload GoCD task plugin
 
-This is merely a skeleton plugin that plugin developers can fork to get quickly 
-started with writing task plugins for GoCD. It works out of the box, but you should change 
-it to do something besides executing `curl`.
- 
-All the documentation is hosted at https://plugin-api.gocd.io/current/tasks.
+This GoCD plugin allows upload of files to a Redmine instance.
+
+Typical use is to publish a binary to Redmine.
+
+## Requirements
+
+* GoCD 17 (could work with earlier versions, as low as 14)
+* Redmine 3.4
 
 ## Getting started
 
-* Edit the file `build.gradle` to change the plugin id, description and some other metadata.
-* Edit the file `settings.gradle` to change the name of this project.
-* Edit the `GetConfigRequest.java` class to add any configuration fields that should be shown in the view.
-* Edit the `TaskConfig.java` file which contains the model for your task configuration.
-* Edit the `task.template.html` file which contains the view for the plugin settings page of your plugin.
-* Edit the `ValidateRequest.java` class to perform validation of the task configuration as performed by a user. 
-* Edit the `ExecuteRequest.java` and `CurlTaskExecutor.java` class to execute the task, and pipe stdout/stderr correctly.  
+* define `REDMINE_API_KEY` as a (secure) variable, I did it in the environment
+* define `REDMINE_URL` as a variable, I did it in the environment
+* add a job/task and configure:
+  * the artifact you wish to upload
+  * the Redmine project
+  * the project version
+
+For Redmine, you either need the 3.4 version, or the r16109, or apply manually [this patch](http://www.redmine.org/projects/redmine/repository/revisions/16109/diff/).
+
+The project ID is either the numeric or the string ID.
+
+There is an artifact generated, it's called `redmine_output.html` (at the root).
 
 ## Building the code base
 
