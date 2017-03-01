@@ -69,7 +69,7 @@ public class RedmineUploadFileTaskExecutor {
             return new Result(false, "Redmine didn't accept the file upload. Check API key, URL, artifact path...");
         }
 
-        linkUploadToVersion(redmineUrl, apiKey, upload, taskTaskConfig, console);
+        linkUploadToVersion(redmineUrl, apiKey, upload, taskContext, taskTaskConfig, console);
 
         String filesUrl = redmineUrl + "/projects/" + taskTaskConfig.getProjectId() + "/files";
         String resultHtml = "<p>File uploaded to: <a href=\"" + filesUrl + "\">" + filesUrl + "</a></p>";
@@ -114,20 +114,32 @@ public class RedmineUploadFileTaskExecutor {
     /**
      * Link attachment upload and project versions (will make the file appear in the files tab of Redmine)
      *
-     * @param redmineUrl Redmine URL
-     * @param apiKey     Redmine API key
-     * @param upload     Result of file upload (for the token)
-     * @param config     Config
-     * @param console    Logging console
-     * @throws IOException In case of network error
+     * @param redmineUrl  Redmine URL
+     * @param apiKey      Redmine API key
+     * @param upload      Result of file upload (for the token)
+     * @param taskContext Task context (for environment variables)
+     * @param config      Config
+     * @param console     Logging console   @throws IOException In case of network error
      */
-    private void linkUploadToVersion(String redmineUrl, String apiKey, AttachmentUpload upload, TaskConfig config, JobConsoleLogger console) throws IOException {
+    private void linkUploadToVersion(String redmineUrl, String apiKey, AttachmentUpload upload, Context taskContext, TaskConfig config, JobConsoleLogger console) throws IOException {
+        String end = config.getFilePath().substring(config.getFilePath().lastIndexOf('/') + 1);
+        String sha1 = (String) taskContext.getEnvironmentVariables().get("GO_REVISION");
+        String fileName = String.format(Locale.getDefault(), "%s_%s_%s",
+                taskContext.getEnvironmentVariables().get("GO_PIPELINE_NAME"),
+                sha1 != null && sha1.length() > 8 ? sha1.substring(0, 8) : sha1,
+                end);
+
+        String description = String.format(Locale.getDefault(),
+                "File generated on %s (go pipeline #%s)",
+                new SimpleDateFormat("dd/mm/yyyy HH:MM:ss", Locale.getDefault()).format(new Date()),
+                taskContext.getEnvironmentVariables().get("GO_PIPELINE_COUNTER"));
+
         // Prepare JSON
         FileUpload linkToVersion = new FileUpload();
-        linkToVersion.file.description = "File generated on " + new SimpleDateFormat("dd/mm/yyyy HH:MM:ss", Locale.getDefault()).format(new Date());
+        linkToVersion.file.description = description;
         linkToVersion.file.token = upload.upload.token;
         linkToVersion.file.versionId = config.getVersionId();
-        linkToVersion.file.filename = config.getFilePath().substring(config.getFilePath().lastIndexOf('/') + 1);
+        linkToVersion.file.filename = fileName;
         String json = TaskPlugin.GSON.toJson(linkToVersion, FileUpload.class);
 
         // Link attachment to version
