@@ -16,6 +16,7 @@
 
 package io.benoitduffez.gocd.redmine;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class TaskConfig {
@@ -23,7 +24,7 @@ public class TaskConfig {
     private final String versionId;
     private final String filePath;
 
-    public TaskConfig(Map config) {
+    public TaskConfig(Map config) throws IOException {
         projectId = getValue(config, TaskPlugin.PROJECT_ID_PROPERTY);
         versionId = getValue(config, TaskPlugin.VERSION_ID_PROPERTY);
         filePath = getValue(config, TaskPlugin.FILE_PATH_PROPERTY);

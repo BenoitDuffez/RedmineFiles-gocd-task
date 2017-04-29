@@ -28,6 +28,7 @@ import com.thoughtworks.go.plugin.api.logging.Logger;
 import com.thoughtworks.go.plugin.api.request.GoPluginApiRequest;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 
+import java.io.IOException;
 import java.util.Arrays;
 
 @Extension
@@ -53,7 +54,11 @@ public class TaskPlugin implements GoPlugin {
         } else if ("validate".equals(request.requestName())) {
             return new ValidateRequest().execute(request);
         } else if ("execute".equals(request.requestName())) {
-            return new ExecuteRequest().execute(request);
+            try {
+                return new ExecuteRequest().execute(request);
+            } catch (IOException e) {
+                throw new UnhandledRequestTypeException("Couldn't find file to upload: " + e);
+            }
         } else if ("view".equals(request.requestName())) {
             return new GetViewRequest().execute();
         }

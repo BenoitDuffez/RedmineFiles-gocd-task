@@ -22,10 +22,11 @@ import com.thoughtworks.go.plugin.api.response.DefaultGoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.response.GoPluginApiResponse;
 import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
 
+import java.io.IOException;
 import java.util.Map;
 
 public class ExecuteRequest {
-    public GoPluginApiResponse execute(GoPluginApiRequest request) {
+    public GoPluginApiResponse execute(GoPluginApiRequest request) throws IOException {
         Map executionRequest = (Map) new GsonBuilder().create().fromJson(request.requestBody(), Object.class);
         Map config = (Map) executionRequest.get("config");
         Map context = (Map) executionRequest.get("context");

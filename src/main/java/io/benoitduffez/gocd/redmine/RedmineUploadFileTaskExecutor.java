@@ -47,6 +47,10 @@ public class RedmineUploadFileTaskExecutor {
         try {
             return runCommand(context, taskConfig, console);
         } catch (Exception e) {
+            console.printLine("Coudln't execute command: " + e);
+            for (StackTraceElement stackTraceElement : e.getStackTrace()) {
+                console.printLine("   at: " + stackTraceElement.toString());
+            }
             return new Result(false, "Failed to upload artifact to Redmine", e);
         }
     }
