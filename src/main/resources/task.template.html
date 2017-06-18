@@ -57,3 +57,11 @@
     </li>
   </ul>
 </div>
+
+<div class="form_item_block">
+  <label for="AppFolder">App Folder (e.g. app):</label>
+  <input id="AppFolder" ng-model="AppFolder" type="text" ng-required="false"
+         class="MB_focusable ng-pristine ng-valid" servererror="undefined" required="required"/>
+  <span class="form_error"
+        ng-show="GOINPUTNAME[AppFolder].$error.server">{{ GOINPUTNAME[AppFolder].$error.server }}</span>
+</div>
