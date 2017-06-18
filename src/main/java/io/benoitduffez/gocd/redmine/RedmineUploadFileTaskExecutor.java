@@ -17,16 +17,21 @@
 package io.benoitduffez.gocd.redmine;
 
 import com.thoughtworks.go.plugin.api.task.JobConsoleLogger;
+import org.apache.commons.io.IOUtils;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.Locale;
+import java.util.Map;
 
 public class RedmineUploadFileTaskExecutor {
+
     private String getText(InputStream is) throws IOException {
         BufferedReader in = new BufferedReader(new InputStreamReader(is));
 
@@ -126,12 +131,20 @@ public class RedmineUploadFileTaskExecutor {
      * @param console     Logging console   @throws IOException In case of network error
      */
     private void linkUploadToVersion(String redmineUrl, String apiKey, AttachmentUpload upload, Context taskContext, TaskConfig config, JobConsoleLogger console) throws IOException {
-        String end = config.getFilePath().substring(config.getFilePath().lastIndexOf('/') + 1);
-        String sha1 = (String) taskContext.getEnvironmentVariables().get("GO_REVISION");
-        String fileName = String.format(Locale.getDefault(), "%s_%s_%s",
-                taskContext.getEnvironmentVariables().get("GO_PIPELINE_NAME"),
-                sha1 != null && sha1.length() > 8 ? sha1.substring(0, 8) : sha1,
-                end);
+        String fileName = config.getFileName();
+        Map<String, String> replacements = new HashMap<String, String>() {{
+            String sha1 = (String) taskContext.getEnvironmentVariables().get("GO_REVISION");
+            put("%R", sha1);
+            put("%r", sha1 != null && sha1.length() > 8 ? sha1.substring(0, 8) : sha1);
+            put("%P", (String) taskContext.getEnvironmentVariables().get("GO_PIPELINE_NAME"));
+            put("%C", (String) taskContext.getEnvironmentVariables().get("GO_PIPELINE_COUNTER"));
+            put("%L", (String) taskContext.getEnvironmentVariables().get("GO_PIPELINE_LABEL"));
+            put("%A", getAndroidVersionName(taskContext, config));
+        }};
+        for (String key : replacements.keySet()) {
+            console.printLine("Replacing " + key + " with " + replacements.get(key));
+            fileName = fileName.replaceAll(key, replacements.get(key));
+        }
 
         String description = String.format(Locale.getDefault(),
                 "File generated on %s (go pipeline #%s)",
@@ -160,6 +173,32 @@ public class RedmineUploadFileTaskExecutor {
         }
 
         console.printLine("Result: " + getText(connection.getInputStream()));
+    }
+
+    private String getAndroidVersionName(Context taskContext, TaskConfig config) {
+        String appFolder = config.getAppFolder();
+        if (appFolder == null || appFolder.trim().length() == 0) {
+            appFolder = "app";
+        }
+
+        String build = "pipelines/"
+                + taskContext.getEnvironmentVariables().get("GO_PIPELINE_NAME")
+                + "/" + appFolder
+                + "/build.gradle";
+        return execute(taskContext, new ProcessBuilder("grep", "-oP", "(?<=versionName\\s\")[^\"]+", build));
+    }
+
+    private String execute(Context taskContext, ProcessBuilder androidVersion) {
+        //noinspection unchecked
+        androidVersion.environment().putAll(taskContext.getEnvironmentVariables());
+
+        try {
+            Process process = androidVersion.start();
+            return IOUtils.toString(process.getInputStream(), StandardCharsets.UTF_8).trim();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return "";
     }
 
     /**

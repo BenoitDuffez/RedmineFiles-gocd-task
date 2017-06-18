@@ -39,6 +39,9 @@ public class ValidateRequest {
         if (!hasValidEntry(configMap, TaskPlugin.FILE_PATH_PROPERTY)) {
             errorMap.put(TaskPlugin.FILE_PATH_PROPERTY, "File Path cannot be empty");
         }
+        if (!hasValidEntry(configMap, TaskPlugin.FILE_NAME_PROPERTY)) {
+            errorMap.put(TaskPlugin.FILE_NAME_PROPERTY, "File Name cannot be empty");
+        }
         validationResult.put("errors", errorMap);
         return new DefaultGoPluginApiResponse(responseCode, TaskPlugin.GSON.toJson(validationResult));
     }

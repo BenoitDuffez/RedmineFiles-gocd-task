@@ -23,15 +23,23 @@ public class TaskConfig {
     private final String projectId;
     private final String versionId;
     private final String filePath;
+    private final String fileName;
+    private final String appFolder;
 
     public TaskConfig(Map config) throws IOException {
         projectId = getValue(config, TaskPlugin.PROJECT_ID_PROPERTY);
         versionId = getValue(config, TaskPlugin.VERSION_ID_PROPERTY);
         filePath = getValue(config, TaskPlugin.FILE_PATH_PROPERTY);
+        fileName = getValue(config, TaskPlugin.FILE_NAME_PROPERTY);
+        appFolder = getValue(config, TaskPlugin.APP_FOLDER_PROPERTY);
     }
 
     private String getValue(Map config, String property) {
-        return (String) ((Map) config.get(property)).get("value");
+        Map map = (Map) config.get(property);
+        if (map == null) {
+            return null;
+        }
+        return (String) map.get("value");
     }
 
     public String getProjectId() {
@@ -44,5 +52,13 @@ public class TaskConfig {
 
     public String getFilePath() {
         return filePath;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public String getAppFolder() {
+        return appFolder;
     }
 }

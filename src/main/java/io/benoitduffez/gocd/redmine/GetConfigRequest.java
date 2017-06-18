@@ -45,6 +45,18 @@ public class GetConfigRequest {
         filePath.put("required", true);
         config.put(TaskPlugin.FILE_PATH_PROPERTY, filePath);
 
+        HashMap<String, Object> fileName = new HashMap<>();
+        fileName.put("display-order", "3");
+        fileName.put("display-name", "File Name");
+        fileName.put("required", true);
+        config.put(TaskPlugin.FILE_NAME_PROPERTY, fileName);
+
+        HashMap<String, Object> appFolder = new HashMap<>();
+        appFolder.put("display-order", "4");
+        appFolder.put("display-name", "App Folder (e.g. app)");
+        appFolder.put("required", false);
+        config.put(TaskPlugin.APP_FOLDER_PROPERTY, appFolder);
+
         return DefaultGoPluginApiResponse.success(TaskPlugin.GSON.toJson(config));
     }
 }

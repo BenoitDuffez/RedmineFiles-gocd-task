@@ -15,22 +15,45 @@
   -->
 
 <div class="form_item_block">
-  <label>Project ID (numeric or string identifier):<span class="asterisk">*</span></label>
-  <input type="ProjectId" ng-model="ProjectId" ng-required="true"/>
+  <label for="ProjectId">Project ID (numeric or string identifier):<span class="asterisk">*</span></label>
+  <input id="ProjectId" ng-model="ProjectId" type="text" ng-required="true"
+         class="MB_focusable ng-pristine ng-valid ng-valid-required" servererror="undefined" required="required"/>
   <span class="form_error"
         ng-show="GOINPUTNAME[ProjectId].$error.server">{{ GOINPUTNAME[ProjectId].$error.server }}</span>
 </div>
 
 <div class="form_item_block">
-  <label>Version ID (numeric or string identifier):<span class="asterisk">*</span></label>
-  <input type="VersionId" ng-model="VersionId" ng-required="true"/>
+  <label for="VersionId">Version ID (numeric or string identifier):<span class="asterisk">*</span></label>
+  <input id="VersionId" ng-model="VersionId" type="text" ng-required="true"
+         class="MB_focusable ng-pristine ng-valid ng-valid-required" servererror="undefined" required="required"/>
   <span class="form_error"
         ng-show="GOINPUTNAME[VersionId].$error.server">{{ GOINPUTNAME[VersionId].$error.server }}</span>
 </div>
 
 <div class="form_item_block">
-  <label>File Path (e.g. app/build/outputs/apk/app-debug.apk):<span class="asterisk">*</span></label>
-  <input type="FilePath" ng-model="FilePath" ng-required="true"/>
+  <label for="FilePath">File Path (e.g. app/build/outputs/apk/app-debug.apk):<span class="asterisk">*</span></label>
+  <input id="FilePath" ng-model="FilePath" type="text" ng-required="true"
+         class="MB_focusable ng-pristine ng-valid ng-valid-required" servererror="undefined" required="required"/>
   <span class="form_error"
         ng-show="GOINPUTNAME[FilePath].$error.server">{{ GOINPUTNAME[FilePath].$error.server }}</span>
+</div>
+
+<div class="form_item_block">
+  <label for="FileName">File Name (e.g. app/build/outputs/apk/app-debug.apk):<span class="asterisk">*</span></label>
+  <input id="FileName" ng-model="FileName" type="text" ng-required="true"
+         class="MB_focusable ng-pristine ng-valid ng-valid-required" servererror="undefined" required="required"/>
+  <span class="form_error"
+        ng-show="GOINPUTNAME[FileName].$error.server">{{ GOINPUTNAME[FileName].$error.server }}</span>
+
+  <p>Available substitutions:</p>
+  <ul>
+    <li style="clear: both; list-style: disc; margin-left: 15px;">%P: pipeline name</li>
+    <li style="clear: both; list-style: disc; margin-left: 15px;">%C: pipeline counter</li>
+    <li style="clear: both; list-style: disc; margin-left: 15px;">%L: pipeline label</li>
+    <li style="clear: both; list-style: disc; margin-left: 15px;">%R: long SHA1</li>
+    <li style="clear: both; list-style: disc; margin-left: 15px;">%r: short SHA1</li>
+    <li style="clear: both; list-style: disc; margin-left: 15px;">%A: Android version name (taken from versionName in
+      app/build.gradle)
+    </li>
+  </ul>
 </div>

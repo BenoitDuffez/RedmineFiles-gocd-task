@@ -36,6 +36,8 @@ public class TaskPlugin implements GoPlugin {
     public static final String PROJECT_ID_PROPERTY = "ProjectId";
     public static final String VERSION_ID_PROPERTY = "VersionId";
     public static final String FILE_PATH_PROPERTY = "FilePath";
+    public static final String FILE_NAME_PROPERTY = "FileName";
+    public static final String APP_FOLDER_PROPERTY = "AppFolder";
     public static final Gson GSON = new GsonBuilder()
             .setFieldNamingPolicy(FieldNamingPolicy.LOWER_CASE_WITH_UNDERSCORES)
             .serializeNulls()
