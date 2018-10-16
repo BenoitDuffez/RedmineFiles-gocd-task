@@ -181,11 +181,13 @@ public class RedmineUploadFileTaskExecutor {
             appFolder = "app";
         }
 
-        String build = "pipelines/"
+        String manifest = "pipelines/"
                 + taskContext.getEnvironmentVariables().get("GO_PIPELINE_NAME")
                 + "/" + appFolder
-                + "/build.gradle";
-        return execute(taskContext, new ProcessBuilder("grep", "-oP", "(?<=versionName\\s\")[^\"]+", build));
+                + "/build/intermediates/merged_manifests/"
+                + taskContext.getEnvironmentVariables().get("ANDROID_VARIANT")
+                + "/AndroidManifest.xml";
+        return execute(taskContext, new ProcessBuilder("grep", "-oP", "(?<=versionName=\")[^\"]+", manifest));
     }
 
     private String execute(Context taskContext, ProcessBuilder androidVersion) {
